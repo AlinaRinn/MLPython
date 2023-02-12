@@ -1,3 +1,4 @@
+from cmath import exp
 import random
 
 def Taubin(x, y, z):
@@ -12,13 +13,14 @@ def NumerizedPrint(a):
     for i in range(len(a)):
         print("%3d) %s" % (i, a[i]))
 
-def Uniqulizer(a):
+def UniqulizeMinMax(a, minmax):
     print("\nInput array length:", len(a), "\n")
     NumerizedPrint(a)   
     b = []
 
     # First correction
     a.sort(key = lambda x: (x[0], x[1]))
+    minmax.append([a[0][0], a[len(a)-1][0]])
     print("\nSorted array(0, 1):")
     NumerizedPrint(a)
     for i in range(0, len(a) - 1, 1):
@@ -32,6 +34,7 @@ def Uniqulizer(a):
 
     # Last correction
     a.sort(key = lambda x: (x[1], x[2]))
+    minmax.append([a[0][1], a[len(a)-1][1]])
     print("\nSorted array(1, 2):")
     NumerizedPrint(a)
     for i in range(0, len(a) - 1, 1):
@@ -42,14 +45,38 @@ def Uniqulizer(a):
     for i in reversed(range(len(b))):
         del(a[b[i]])
 
+    a.sort(key = lambda x: x[2])
+    minmax.append([a[0][2], a[len(a)-1][2]])
+    a.sort(key = lambda x: x[3])
+    minmax.append([a[0][3], a[len(a)-1][3]])
     print("\nFinal array view:")
     NumerizedPrint(a)
+    print("\nMin Max :", minmax)
 
+def Normalize(a, minmax):
+    for i in range(len(a)):
+        for k in range(len(a[0]) - 1):
+            a[i][k] = (a[i][k] - minmax[k][0]) / (minmax[k][1] - minmax[k][0]) 
+        a[i][3] = (a[i][3] - minmax[3][0]) / (minmax[3][1] - minmax[3][0])
+
+    print("\nNormalzed data: \n", a)
+
+def SingleLayerPerceptron(M, K, A, V, Input): # M - входы, K - выходы, A - параметр насыщения, V - скорость обучения, Input - входной массив    
+    N = (M + 1)*K # Количество весовых коэффициентов
+    Nw = [] 
+    S = 1 / exp(-A*S) + 1
+
+    for i in range(N):
+        Nw.append(random.uniform(0, M**-1))
+    print(Nw)
+    return 0
 
 def main():
     InputList = []
+    minmax = []
     RandomFill(InputList, 100, -10, 10)
-    Uniqulizer(InputList)
-
+    UniqulizeMinMax(InputList, minmax)
+    Normalize(InputList, minmax)
+    SingleLayerPerceptron(len(InputList)*3, len(InputList), 1, 0.9, InputList)
 
 main()
