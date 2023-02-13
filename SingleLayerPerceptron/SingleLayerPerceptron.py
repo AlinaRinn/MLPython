@@ -1,5 +1,7 @@
-from cmath import exp
 import random
+from math import sqrt
+
+E = 2.71828182845904523536
 
 def Taubin(x, y, z):
     return (x**2 + 9*y**2/4 + z**2 - 1)**3 - x**2*z**3 - 9*y**2*z**3/80
@@ -27,7 +29,7 @@ def UniqulizeMinMax(a, minmax):
         if(a[i][0] == a[i+1][0] and a[i][1] == a[i+1][1]):
             b.append(i)
 
-    print("\nThis array units will been deleted for improving ML model:", b)
+    print("\nThis array units will been deleted for improving ML data:", b)
     for i in reversed(range(len(b))):
         del(a[b[i]])
     b.clear()
@@ -59,24 +61,41 @@ def Normalize(a, minmax):
             a[i][k] = (a[i][k] - minmax[k][0]) / (minmax[k][1] - minmax[k][0]) 
         a[i][3] = (a[i][3] - minmax[3][0]) / (minmax[3][1] - minmax[3][0])
 
-    print("\nNormalzed data: \n", a)
+    print("\nNormalzed data: \n")
+    NumerizedPrint(a)
 
-def SingleLayerPerceptron(M, K, A, V, Input): # M - входы, K - выходы, A - параметр насыщения, V - скорость обучения, Input - входной массив    
-    N = (M + 1)*K # Количество весовых коэффициентов
+def SingleLayerPerceptron(M, K, A, V, Input, Ages): # M - входы, K - выходы, A - параметр насыщения, V - скорость обучения, Input - входной массив, Ages - кол-во эпох обучения    
+    N = (M + 1) # Количество весовых коэффициентов
     Nw = [] 
-    S = 1 / exp(-A*S) + 1
-
     for i in range(N):
-        Nw.append(random.uniform(0, M**-1))
-    print(Nw)
-    return 0
+        Nw.append(random.uniform(0, M**-1)) # Массив коэффициентов 
+    Vd = V / (Ages + 1) # Размер декрементирования скорости обучения
+    AgeLog = [] # Лог эпохи
+    locErr = [] # Локальная погрешность
+
+    for counter in range(Ages):
+        print("\nStart of age", counter, ":", "\n\nInput data: ")
+        NumerizedPrint(Input)
+        print("\nIterations:")
+        for i in range(K):
+            S = Nw[0] + (Nw[1]*Input[i][0] + Nw[2]*Input[i][1] + Nw[3]*Input[i][2]) # Состояние нейрона      
+            Fs = 1 / (E**-A*S + 1) # Функция активации
+            delta = (Input[i][3] - Fs)**2 # Погрешность
+            locErr.append(delta)
+            for j in range(N - 1):
+                Nw[j + 1] = Nw[j] + V*delta*Input[i][j] # Корректировка погрешности 
+            AgeLog.append([S, Fs, delta, Nw])
+            print(AgeLog[i], "    ", locErr[i])     
+        print("\nEnd of age\nNeuron condition(last):", S, "\nActivation function(last):", Fs, "\nError(last):", delta, "\nWeight coefficients:", Nw, "\nNew learn speed:", V, "\n\n")
+        random.shuffle(Input)
+        V -= Vd  
 
 def main():
     InputList = []
     minmax = []
-    RandomFill(InputList, 100, -10, 10)
+    RandomFill(InputList, 10, -10, 10)
     UniqulizeMinMax(InputList, minmax)
     Normalize(InputList, minmax)
-    SingleLayerPerceptron(len(InputList)*3, len(InputList), 1, 0.9, InputList)
+    SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.9, InputList, 10)
 
 main()
