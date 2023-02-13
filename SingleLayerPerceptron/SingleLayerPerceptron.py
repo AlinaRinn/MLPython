@@ -80,15 +80,17 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages): # M - входы, K - выходы, A -
         for i in range(K):
             S = Nw[0] + (Nw[1]*Input[i][0] + Nw[2]*Input[i][1] + Nw[3]*Input[i][2]) # Состояние нейрона      
             Fs = 1 / (E**-A*S + 1) # Функция активации
-            delta = (Input[i][3] - Fs)**2 # Погрешность
-            locErr.append(delta)
+            delta = Input[i][3] - Fs # Погрешность
+            locErr.append(delta**2)
             for j in range(N - 1):
                 Nw[j + 1] = Nw[j] + V*delta*Input[i][j] # Корректировка погрешности 
             AgeLog.append([S, Fs, delta, Nw])
-            print(AgeLog[i], "    ", locErr[i])     
-        print("\nEnd of age\nNeuron condition(last):", S, "\nActivation function(last):", Fs, "\nError(last):", delta, "\nWeight coefficients:", Nw, "\nNew learn speed:", V, "\n\n")
+            print(AgeLog[i], "    ", locErr[i])  
+        Err = sqrt((1/N)*sum(locErr))
         random.shuffle(Input)
         V -= Vd  
+        print("\nEnd of age\nNeuron condition(last):", S, "\nActivation function(last):", Fs, "\nError:", Err*100, "%\nWeight coefficients:", Nw, "\nNew learn speed:", V, "\n\n")
+
 
 def main():
     InputList = []
