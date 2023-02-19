@@ -1,11 +1,14 @@
 import random
 from math import sqrt
+from subprocess import list2cmdline
+from xml.etree.ElementTree import tostring, tostringlist
+import numpy
 
 E = 2.71828182845904523536
 
 
 def Taubin(x, y, z):
-    return x - y + y * z*3 + 1
+    return (x**2 + 9*y**2/4 + z**2 - 1)**3 - x**2*z**3 - 9*y**2*z**3/80
 
 
 def RandomFill(a, b, c, d):
@@ -73,32 +76,44 @@ def Normalize(a, minmax):
 def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - входы, K - выходы, A - параметр насыщения, V - скорость обучения, Input - входной массив, Ages - кол-во эпох обучения
     N = (M + 1)  # Количество весовых коэффициентов
     Nw = []
+    Fs = 0.0
     for i in range(N):
         Nw.append(random.uniform(0, M ** -1))  # Массив коэффициентов
     Vd = V / (Ages + 1)  # Размер декрементирования скорости обучения
     AgeLog = []  # Лог эпохи
     delt = 0
+    Err = []
+    file = open("output.csv", "w")
+    file.write("Neuron;Activation function;delta;w0;w1;w2;w3;\n\n")
 
     for counter in range(Ages):
         print("\nStart of age", counter, ":", "\n\nInput data(x1, x2, x3, y1): ")
         NumerizedPrint(Input)
         print("\nIterations(Neuron, Activation function, delta, Weight coefficients):")
+
         for i in range(0, K, 1):
             S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # Состояние нейрона
-            Fs = 1 / (E ** (-A * S) + 1)  # Функция активации
+            Fs = 1 / (E **(-A*S) + 1)  # Функция активации
             delt = Input[i][3] - Fs  # Погрешность
             for j in range(0, N, 1):
                 Nw[j] = Nw[j] + V * delt * Input[i][j]  # Корректировка погрешности
             AgeLog.append([S, Fs, delt, [Nw[0], Nw[1], Nw[2], Nw[3]]])
+            file.write(str(S) + ";" + str(Fs) + ";" + str(delt) + ";" + str(Nw[0]) + ";" + str(Nw[1]) + ";" + str(Nw[2]) + ";" + str(Nw[3]) + "\n")
             tmp = 0
-            for k in range(0, len(AgeLog), 1):
-                tmp += AgeLog[i][2]**2
-            Err = sqrt(tmp * (1/K)) /10
+        for k in range(0, len(AgeLog), 1):
+            tmp += AgeLog[i][2]**2
+        Err.append(sqrt(tmp/K))
         NumerizedPrint(AgeLog)
         random.shuffle(Input)
-        AgeLog.clear()
+        AgeLog.clear()       
         V -= Vd
-        print("\nEnd of age\nError:", Err, "\nNew learn speed:", V, "\n\n")
+        print("\nEnd of age\nError:", Err[counter], "\nNew learn speed:", V, "\n\n") 
+        file.write("\n") 
+
+    file.write("\n\n") 
+    for i in range(len(Err)):
+        file.write(str(i) + ";" + str(Err[i]) + "\n")    
+    file.close()
 
 
 def MultipleLayerPerceptron(M, K, A, V, Input, Ages):
@@ -112,7 +127,7 @@ def main():
     RandomFill(InputList, 10, -10, 10)
     UniqulizeMinMax(InputList, minmax)
     Normalize(InputList, minmax)
-    SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.9, InputList, 10)
+    SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.99, InputList, 50)
 
 
 main()
