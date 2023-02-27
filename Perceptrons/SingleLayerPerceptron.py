@@ -1,11 +1,7 @@
 import random
 from math import sqrt
-from subprocess import list2cmdline
-from xml.etree.ElementTree import tostring, tostringlist
-import numpy
 
 E = 2.71828182845904523536
-
 
 def Taubin(x, y, z):
     return (x**2 + 9*y**2/4 + z**2 - 1)**3 - x**2*z**3 - 9*y**2*z**3/80
@@ -73,14 +69,14 @@ def Normalize(a, minmax):
     NumerizedPrint(a)
 
 
-def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - входы, K - выходы, A - параметр насыщения, V - скорость обучения, Input - входной массив, Ages - кол-во эпох обучения
-    N = (M + 1)  # Количество весовых коэффициентов
+def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - пїЅпїЅпїЅпїЅпїЅ, K - пїЅпїЅпїЅпїЅпїЅпїЅ, A - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, V - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, Input - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, Ages - пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    N = (M + 1)  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Nw = []
     Fs = 0.0
     for i in range(N):
-        Nw.append(random.uniform(0, M ** -1))  # Массив коэффициентов
-    Vd = V / (Ages + 1)  # Размер декрементирования скорости обучения
-    AgeLog = []  # Лог эпохи
+        Nw.append(random.uniform(0, M ** -1))  # пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    Vd = V / (Ages + 1)  # пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    AgeLog = []  # пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     delt = 0
     Err = []
     file = open("output.csv", "w")
@@ -92,11 +88,11 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - входы, K - выходы, A 
         print("\nIterations(Neuron, Activation function, delta, Weight coefficients):")
 
         for i in range(0, K, 1):
-            S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # Состояние нейрона
-            Fs = 1 / (E **(-A*S) + 1)  # Функция активации
-            delt = Input[i][3] - Fs  # Погрешность
+            S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            Fs = 1 / (E **(-A*S) + 1)  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            delt = Input[i][3] - Fs  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             for j in range(0, N, 1):
-                Nw[j] = Nw[j] + V * delt * Input[i][j]  # Корректировка погрешности
+                Nw[j] = Nw[j] + V * delt * Input[i][j]  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             AgeLog.append([S, Fs, delt, [Nw[0], Nw[1], Nw[2], Nw[3]]])
             file.write(str(S) + ";" + str(Fs) + ";" + str(delt) + ";" + str(Nw[0]) + ";" + str(Nw[1]) + ";" + str(Nw[2]) + ";" + str(Nw[3]) + "\n")
             tmp = 0
@@ -114,10 +110,6 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - входы, K - выходы, A 
     for i in range(len(Err)):
         file.write(str(i) + ";" + str(Err[i]) + "\n")    
     file.close()
-
-
-def MultipleLayerPerceptron(M, K, A, V, Input, Ages):
-    return 0
 
 
 def main():

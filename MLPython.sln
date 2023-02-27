@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SingleLayerPerceptron", "SingleLayerPerceptron\SingleLayerPerceptron.pyproj", "{35045802-659A-4368-AE1E-0BBCE1F1A1C5}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Perceptrons", "Perceptrons\Perceptrons.pyproj", "{35045802-659A-4368-AE1E-0BBCE1F1A1C5}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RadiallySymmetric", "RadiallySymmetric\RadiallySymmetric.pyproj", "{66DB86A4-A8F5-412B-964C-DB17137A72E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66DB86A4-A8F5-412B-964C-DB17137A72E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66DB86A4-A8F5-412B-964C-DB17137A72E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
