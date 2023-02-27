@@ -1,22 +1,7 @@
-import random
 from math import sqrt
+from Common import *
 
 E = 2.71828182845904523536
-
-def Taubin(x, y, z):
-    return (x**2 + 9*y**2/4 + z**2 - 1)**3 - x**2*z**3 - 9*y**2*z**3/80
-
-
-def RandomFill(a, b, c, d):
-    for i in range(b):
-        a.append([random.randint(c, d), random.randint(c, d), random.randint(c, d), 0])
-        a[i][3] = Taubin(a[i][0], a[i][1], a[i][2])
-
-
-def NumerizedPrint(a):
-    for i in range(len(a)):
-        print("%3d) %s" % (i, a[i]))
-
 
 def UniqulizeMinMax(a, minmax):
     print("\nInput array length:", len(a), "\n")
@@ -58,28 +43,27 @@ def UniqulizeMinMax(a, minmax):
     NumerizedPrint(a)
     print("\nMin Max :", minmax)
 
-
-def Normalize(a, minmax):
-    for i in range(len(a)):
-        for k in range(len(a[0]) - 1):
-            a[i][k] = (a[i][k] - minmax[k][0]) / (minmax[k][1] - minmax[k][0])
-        a[i][3] = (a[i][3] - minmax[3][0]) / (minmax[3][1] - minmax[3][0])
+def Normalize(array, minmax):
+    for i in range(len(array)):
+        for k in range(len(array[0]) - 1):
+            array[i][k] = (array[i][k] - minmax[k][0]) / (minmax[k][1] - minmax[k][0])
+        array[i][3] = (array[i][3] - minmax[3][0]) / (minmax[3][1] - minmax[3][0])
 
     print("\nNormalzed data: \n")
-    NumerizedPrint(a)
+    NumerizedPrint(array)
 
 
-def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - �����, K - ������, A - �������� ���������, V - �������� ��������, Input - ������� ������, Ages - ���-�� ���� ��������
-    N = (M + 1)  # ���������� ������� �������������
+def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - inputs, K - outputs, A - feed parametr, V - learning speed, Input - input array 4*x, Ages - learning ages amount
+    N = (M + 1)  # Weight coeff amount
     Nw = []
     Fs = 0.0
     for i in range(N):
-        Nw.append(random.uniform(0, M ** -1))  # ������ �������������
-    Vd = V / (Ages + 1)  # ������ ����������������� �������� ��������
-    AgeLog = []  # ��� �����
+        Nw.append(random.uniform(0, M ** -1))  # Weight coeff array
+    Vd = V / (Ages + 1)  # Learning speed decrementation
+    AgeLog = []  # Log of age
     delt = 0
     Err = []
-    file = open("output.csv", "w")
+    file = open("outputSLP.csv", "w")
     file.write("Neuron;Activation function;delta;w0;w1;w2;w3;\n\n")
 
     for counter in range(Ages):
@@ -88,11 +72,11 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - �����, K - 
         print("\nIterations(Neuron, Activation function, delta, Weight coefficients):")
 
         for i in range(0, K, 1):
-            S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # ��������� �������
-            Fs = 1 / (E **(-A*S) + 1)  # ������� ���������
-            delt = Input[i][3] - Fs  # �����������
+            S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # Neuron state
+            Fs = 1 / (E **(-A*S) + 1)  # Activation function
+            delt = Input[i][3] - Fs  # Error
             for j in range(0, N, 1):
-                Nw[j] = Nw[j] + V * delt * Input[i][j]  # ������������� �����������
+                Nw[j] = Nw[j] + V * delt * Input[i][j]  # Error fixing
             AgeLog.append([S, Fs, delt, [Nw[0], Nw[1], Nw[2], Nw[3]]])
             file.write(str(S) + ";" + str(Fs) + ";" + str(delt) + ";" + str(Nw[0]) + ";" + str(Nw[1]) + ";" + str(Nw[2]) + ";" + str(Nw[3]) + "\n")
             tmp = 0

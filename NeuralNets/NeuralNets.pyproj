@@ -10,7 +10,7 @@
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Perceptrons</Name>
+    <Name>NeuralNets</Name>
     <RootNamespace>Perceptrons</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
@@ -23,7 +23,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AdaptiveResonance.py" />
+    <Compile Include="AutoAssociativeMemory.py" />
+    <Compile Include="Common.py" />
+    <Compile Include="HeteroAssociativeMemory.py" />
+    <Compile Include="Kohonen.py" />
     <Compile Include="MultipleLayerPerceptron.py" />
+    <Compile Include="RadiallySymmetric.py" />
     <Compile Include="SingleLayerPerceptron.py" />
     <Compile Include="Main.py" />
   </ItemGroup>
