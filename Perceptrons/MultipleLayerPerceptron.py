@@ -1,7 +1,6 @@
 from SingleLayerPerceptron import RandomFill
 
+def MultipleLayerPerceptron():
+    RandomFill(0, 0, 0, 0)
+    print ("hello")
 
-def MultipleLayerPerceptron(M, K, A, V, Input, Ages):
-    return 0
-
-RandomFill()
