@@ -1,8 +1,6 @@
 from math import sqrt
 from Common import *
 
-E = 2.71828182845904523536
-
 def UniqulizeMinMax(a, minmax):
     print("\nInput array length:", len(a), "\n")
     NumerizedPrint(a)
@@ -43,7 +41,7 @@ def UniqulizeMinMax(a, minmax):
     NumerizedPrint(a)
     print("\nMin Max :", minmax)
 
-def Normalize(array, minmax):
+def Normalize(array, minmax):   # Array [x1, x2, x2, xn, y], minmax [min, max]
     for i in range(len(array)):
         for k in range(len(array[0]) - 1):
             array[i][k] = (array[i][k] - minmax[k][0]) / (minmax[k][1] - minmax[k][0])
@@ -73,7 +71,7 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - inputs, K - outputs, 
 
         for i in range(0, K, 1):
             S = Nw[0] + (Nw[1] * Input[i][0] + Nw[2] * Input[i][1] + Nw[3] * Input[i][2])  # Neuron state
-            Fs = 1 / (E **(-A*S) + 1)  # Activation function
+            Fs = SigmoidLogistics(A, S)  # Activation function
             delt = Input[i][3] - Fs  # Error
             for j in range(0, N, 1):
                 Nw[j] = Nw[j] + V * delt * Input[i][j]  # Error fixing
@@ -95,12 +93,11 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - inputs, K - outputs, 
         file.write(str(i) + ";" + str(Err[i]) + "\n")    
     file.close()
 
-    # Main() example:
-
-    # from SingleLayerPerceptron import *
-    # InputList = []
-    # minmax = []
-    # RandomFill(InputList, 10, -10, 10)
-    # UniqulizeMinMax(InputList, minmax)
-    # Normalize(InputList, minmax)
-    # SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.99, InputList, 50)
+def main():
+    InputList = []
+    minmax = []
+    RandomFill(InputList, 10, -10, 10)
+    UniqulizeMinMax(InputList, minmax)
+    Normalize(InputList, minmax)
+    SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.99, InputList, 50)
+main()

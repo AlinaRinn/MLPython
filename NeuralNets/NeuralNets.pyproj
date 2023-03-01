@@ -5,7 +5,7 @@
     <ProjectGuid>35045802-659a-4368-ae1e-0bbce1f1a1c5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>Main.py</StartupFile>
+    <StartupFile>RadiallySymmetric.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -31,7 +31,6 @@
     <Compile Include="MultipleLayerPerceptron.py" />
     <Compile Include="RadiallySymmetric.py" />
     <Compile Include="SingleLayerPerceptron.py" />
-    <Compile Include="Main.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
