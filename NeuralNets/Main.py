@@ -1,11 +1,19 @@
-from SingleLayerPerceptron import *
+from RadiallySymmetric import Gauss
+import numpy as np
 
 def main():
-    InputList = []
-    minmax = []
-    RandomFill(InputList, 10, -10, 10)
-    UniqulizeMinMax(InputList, minmax)
-    Normalize(InputList, minmax)
-    SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.99, InputList, 50)
+    InputArray = [[-2.0, -0.48], 
+                  [-1.5, -0.78], 
+                  [-1.0, -0.83], 
+                  [-0.5, -0.67], 
+                  [0.0, -0.20], 
+                  [0.5, 0.70], 
+                  [1.0, 1.48], 
+                  [1.5, 1.17], 
+                  [2.0, 0.20]]
+    a = np.array(InputArray, float)
+    a = a.T
+    print(a)
+    Gauss(a)
 
 main()

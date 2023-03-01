@@ -94,3 +94,13 @@ def SingleLayerPerceptron(M, K, A, V, Input, Ages):  # M - inputs, K - outputs, 
     for i in range(len(Err)):
         file.write(str(i) + ";" + str(Err[i]) + "\n")    
     file.close()
+
+    # Main() example:
+
+    # from SingleLayerPerceptron import *
+    # InputList = []
+    # minmax = []
+    # RandomFill(InputList, 10, -10, 10)
+    # UniqulizeMinMax(InputList, minmax)
+    # Normalize(InputList, minmax)
+    # SingleLayerPerceptron(len(InputList[0]) - 1, len(InputList), 1, 0.99, InputList, 50)

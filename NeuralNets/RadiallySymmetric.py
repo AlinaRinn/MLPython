@@ -1,4 +1,6 @@
 
 
-def Gauss():
+def Gauss(array):
+
+
 	return 0
