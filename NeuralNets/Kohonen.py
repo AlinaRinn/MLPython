@@ -4,7 +4,6 @@ import Common
 
 def Kohonen(InputArray, W, V, cluster, Eras): # Self-learning # Input array rows count must be divisible to cluster count
     Vdecrement = V/Eras
-    arrayDivider = int(len(InputArray)/cluster)
     R = []
     era = 0
     while(era < Eras):
@@ -12,13 +11,13 @@ def Kohonen(InputArray, W, V, cluster, Eras): # Self-learning # Input array rows
         print("Input array:\n")
         Common.NumerizedPrint(InputArray)
         print("\nStart W:\n")
-        Common.NumerizedPrint(W)
-        for e in range(arrayDivider):
+        Common.FloatNumerizedPrint(W, 2)
+        for e in range(len(InputArray)):
             Rtmparray = [] 
             for j in range(cluster):
                 Rtmp = 0
                 for i in range(len(InputArray[0])):
-                    Rtmp += (InputArray[j][i]-W[j][i])**2
+                    Rtmp += (InputArray[e][i]-W[j][i])**2  # R
                 Rtmp = sqrt(Rtmp)
                 Rtmparray.append(Rtmp)
             WWinnerIndex = Rtmparray.index(min(Rtmparray))
@@ -26,15 +25,10 @@ def Kohonen(InputArray, W, V, cluster, Eras): # Self-learning # Input array rows
             print("R current: ", Rtmparray)
             print("Winner index: ", WWinnerIndex)
             for i in range(len(W[0])):
-                W[WWinnerIndex][i] = W[WWinnerIndex][i] + V*(InputArray[WWinnerIndex][i] - W[WWinnerIndex][i])
+                W[WWinnerIndex][i] = W[WWinnerIndex][i] + V*(InputArray[e][i] - W[WWinnerIndex][i])
             R.append(Rtmparray.copy())         
             print("New W: ")
-            Common.NumerizedPrint(W)
-            for i in range(cluster):
-                InputArray.append(InputArray[0])
-                InputArray.pop(0)
-            print("Scrolled Input array: ")
-            Common.NumerizedPrint(InputArray)
+            Common.FloatNumerizedPrint(W, 2)
         V -= Vdecrement
         era += 1
         shuffle(InputArray)
@@ -68,6 +62,6 @@ def main():
          [0.80, 0.20, 0.50, 0.50, 0.40, 0.40, 0.40], # claster 3
          [0.80, 0.80, 0.60, 0.70, 0.70, 0.60, 0.70]] # claster 4
 
-    Kohonen(InputArray, W, 0.3, 4, 1)
+    Kohonen(InputArray, W, 0.3, 4, 100)
 
 main()

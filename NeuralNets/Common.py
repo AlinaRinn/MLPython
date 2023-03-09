@@ -79,3 +79,10 @@ def UniqulizeMinMax(a, minmax):
 def NumerizedPrint(array):
     for i in range(len(array)):
         print("%3d) %s" % (i, array[i]))
+
+def FloatNumerizedPrint(array, lenght):
+    for i in range(len(array)):
+        print("%3d)" % i, end=" ")
+        for j in range(len(array[0])):
+            print(round(array[i][j], lenght), end=" ")
+        print("\n", end="")
