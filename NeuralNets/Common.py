@@ -76,13 +76,13 @@ def UniqulizeMinMax(a, minmax):
     NumerizedPrint(a)
     print("\nMin Max :", minmax)
 
-def NumerizedPrint(array):
+def NumerizedPrint(array, end = "\n"):
     for i in range(len(array)):
-        print("%3d) %s" % (i, array[i]))
+        print("%3d) %s" % (i, array[i]), end=end)
 
-def FloatNumerizedPrint(array, lenght):
+def FloatNumerizedPrint(array, roundsigns):
     for i in range(len(array)):
         print("%3d)" % i, end=" ")
         for j in range(len(array[0])):
-            print(round(array[i][j], lenght), end=" ")
+            print(round(array[i][j], roundsigns), end=" ")
         print("\n", end="")
