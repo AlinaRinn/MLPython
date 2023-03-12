@@ -62,6 +62,6 @@ def main():
          [0.80, 0.20, 0.50, 0.50, 0.40, 0.40, 0.40], # claster 3
          [0.80, 0.80, 0.60, 0.70, 0.70, 0.60, 0.70]] # claster 4
 
-    Kohonen(InputArray, W, 0.3, 4, 100)
+    Kohonen(InputArray, W, 0.3, 4, 10)
 
 main()
