@@ -86,3 +86,14 @@ def FloatNumerizedPrint(array, roundsigns):
         for j in range(len(array[0])):
             print(round(array[i][j], roundsigns), end=" ")
         print("\n", end="")
+
+
+
+        #for i in Y: 
+            #temp += i
+        #if(temp == 0.0):
+            #init(X, W, T)
+            #printInfo()
+            #print("No matches, new cluster added")
+            #Y.clear()
+            #continue
