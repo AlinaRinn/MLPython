@@ -18,6 +18,12 @@ def SigmoidLogistics(A, S):   # A - feed parametr, S - neuron state
 def SigmoidHyperbolicTan(A, S):   # Same
     return 2*SigmoidLogistics(A, S) - 1
 
+def SingleJump(S, T):
+    if (S <= T):
+        return -1
+    elif (S > T):
+        return 1
+
 
 ### Common use functions ###
 

@@ -1,6 +1,8 @@
 import Common
+from random import shuffle
 
-def ART1(inputArray, Rcr, lamda, V):
+
+def ART1(inputArray, Rcr, lamda, V, epo):
     # region variables
     W = [] # neuron
     T = [] # neuron
@@ -35,42 +37,45 @@ def ART1(inputArray, Rcr, lamda, V):
     print("Iter 0: init")
     printInfo()
     # cluster compare # 2.0
-    for e in range(1, len(inputArray), 1): 
-        X = inputArray[e] # 2.1
-        print("\n\nIter", e, "\nX:", X)
-        temp = 0
-        for i in range(len(W)):
-            for j in range(len(W[0])):
-                temp += W[i][j]*X[j] 
-            Y.append(temp)
+    for epoch in range(epo):
+        shuffle(inputArray)
+        for e in range(1, len(inputArray), 1): 
+            X = inputArray[e] # 2.1
+            print("\n\nIter", e, "\nX:", X)
             temp = 0
+            for i in range(len(W)):
+                for j in range(len(W[0])):
+                    temp += W[i][j]*X[j] 
+                Y.append(temp)
+                temp = 0
 
-        # region if we have cluster that match # 3.0
-        temp = 0
-        for i in range(len(T)): # 3.1
-            for j in range(len(T[0])):
-                temp += T[i][j]*X[j] # For all, its OK
-            R.append(temp/sum(X))
+            # region if we have cluster that match # 3.0
             temp = 0
+            for i in range(len(T)): # 3.1
+                for j in range(len(T[0])):
+                    temp += T[i][j]*X[j] # For all, its OK
+                R.append(temp/sum(X))
+                temp = 0
         
-        winner = False
-        for i in range(len(R)): 
-            if (R[i] >= Rcr): # 3.2
-                WWinnerIndex = R.index(R[i])
+            winner = False
+
+            if (max(R) >= Rcr): # 3.2
+                WWinnerIndex = R.index(max(R))
                 for j in range(len(W[0])):
                     W[WWinnerIndex][j] = (1 - V)*W[WWinnerIndex][j] + V*(lamda*X[j]) / (lamda - 1 + sum(X))
                     T[WWinnerIndex][j] = (1 - V)*T[WWinnerIndex][j] + V*X[j]
                 winner = True
+                  
 
-        if(winner == False):
-            init(X, W, T)
-            print("No winner, new cluster added")
-        #endregion
+            if(winner == False):
+                init(X, W, T)
+                print("No winner, new cluster added")
+            #endregion
 
-        printInfo()
-        Y.clear()
-        R.clear()
-        WWinnerIndex = "No match"
+            printInfo()
+            Y.clear()
+            R.clear()
+            WWinnerIndex = "No match"
 
 def main(): 
     inputArray = [[1, 0, 1, 0, 1, 0, 1, 0, 1], # 1
@@ -80,5 +85,5 @@ def main():
                   [0, 1, 0, 1, 0, 1, 0, 1, 1], # 2 mod
                   [1, 1, 1, 0, 1, 0, 1, 0, 1], # 1 mod
                   [1, 0, 1, 0, 0, 1, 0, 1, 0]] # 12 mod
-    ART1(inputArray, 0.7, 2, 0.6)
+    ART1(inputArray, 0.7, 2, 0.6, 10)
 main()
