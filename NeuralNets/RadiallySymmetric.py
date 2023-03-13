@@ -17,8 +17,8 @@ def Gauss(InputArray, vecC, R): # Non-iterative algoritm
         Y.append(i[1])
     Y = np.array(Y, float)
     W = np.array(W, float)
-    print(X)
-    print(vecC)
+    print("X:", X)
+    print("vecC:", vecC)
 
     H = []
     for i in range(len(vecC)):
@@ -29,12 +29,26 @@ def Gauss(InputArray, vecC, R): # Non-iterative algoritm
 
     H = np.array(H, float)
     H = H.T
-    print(H)
+    print("H:\n", H)
     HT = H.T
-
+    xt = 1
     W = np.dot(np.dot(np.linalg.inv(np.dot(HT, H)), HT), Y.T)
-    print(W)
-
+    print("W:", W)
+    def check():
+        Ycalc = []
+        tmp = 0
+        for j in range(len(X)):
+            for i in range(len(vecC)):
+                tmp += E**(-Alfa*sqrt((X[j]-vecC[i])**2)**2)*W[i]
+            Ycalc.append(round(tmp,2))
+            tmp = 0
+        Ycalc = np.array(Ycalc, float)
+        Yerr = abs(Y - Ycalc)
+        print("Y:", Y)
+        print("Y calc:", Ycalc)
+        print("Y errors:", Yerr)
+        print("Total error:", round(sum(Yerr)/len(Yerr)*100, 2), "%")
+    check()
 
 def main():
     InputArray = [[-2.0, -0.48], 

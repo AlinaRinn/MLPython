@@ -1,5 +1,5 @@
 
-def Gauss(InputArray, vecC, R):
+def Hamming():
 	return 0
 
 def main():
