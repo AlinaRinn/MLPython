@@ -5,7 +5,7 @@
     <ProjectGuid>35045802-659a-4368-ae1e-0bbce1f1a1c5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>AdaptiveResonance.py</StartupFile>
+    <StartupFile>AutoAssociativeMemory.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

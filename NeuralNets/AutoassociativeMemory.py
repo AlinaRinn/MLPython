@@ -14,18 +14,22 @@ def Hopfield(X, W, Practice, T):
                 W[i][j] = 0
     print(W)
     print(Y0)
-    tmp = 0
-    for i in range(len(W)):      # 2.2
-        for j in range(len(W[0])):
-            tmp += W[i][j]*Y0[j]
-        S.append(tmp)
-        tmp = 0
-    print(S)
-    for j in range(len(Y0)):
-        Y1.append(SingleJump(S[j], T))
-    Y1 = np.array(Y1, int)
-    print(Y1)
-    print(np.sqrt(sum((Y1 - Y0)**2)))
+    n = 1.0
+    while(n > 0):
+        for i in range(len(W)):  # 2.2
+            tmp = 0
+            for j in range(len(W[0])):
+                tmp += W[i][j]*Y0[j]
+            S.append(tmp)
+        
+        print(S)
+        Y1.tolist()
+        for j in range(len(Y0)):
+            Y1.append(SingleJump(S[j], T))
+        Y1 = np.array(Y1, int)
+        print(Y1)   
+        n = np.sqrt(sum((Y1 - Y0)**2))
+        print(n)
 
 
 
