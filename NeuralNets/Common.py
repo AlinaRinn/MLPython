@@ -27,11 +27,57 @@ def SingleJump(S, T):
 
 ### Common use functions ###
 
-random.seed(5)
-def RandomFill(array, size, rangeMin, rangeMax):
-    for i in range(size):
-        array.append([random.randint(rangeMin, rangeMax), random.randint(rangeMin, rangeMax), random.randint(rangeMin, rangeMax), 0])
-        array[i][3] = Simple(array[i][0], array[i][1], array[i][2])
+def transpose(array):
+    transposed = list()
+    for i in range(len(array[0])):
+        row = list()
+        for sublist in array:
+            row.append(sublist[i])
+        transposed.append(row)
+    return transposed
+
+def multiply(array0, array1):
+    multiplied = []
+    for k in range(len(array0)):
+        stringsum = []
+        for i in range(len(array1[0])):
+            string = 0
+            for j in range(len(array0[0])):
+                string += array0[k][j]*array1[j][i]
+            stringsum.append(string)
+        multiplied.append(stringsum.copy())
+    return multiplied
+
+def diagonalNullifier(array):
+    nullified = array
+    for i in range(len(nullified)):
+        for j in range(len(nullified[0])):
+            if(i == j):
+                nullified[i][j] = 0
+    return nullified
+
+def difference(array0, array1):
+    diff = list()
+    for i in range(len(array0)):
+        diff.append(array0[i]- array1[i])
+    return diff
+
+def powList(array: list) -> list:
+    powList = array
+    for i in range(len(powList)):
+        powList[i] = powList[i]**2
+    return powList
+
+def randomFill(arrayLenght, rangeMin, rangeMax, sizeX = 3, sizeY = 1): 
+    randomArray = list()
+    for i in range(arrayLenght):
+        string = list()
+        for j in range(sizeX):
+            string.append(random.randint(rangeMin, rangeMax))
+        for j in range(sizeY):
+            string.append(Simple(string[0], string[1], string[2]))
+        randomArray.append(string)
+    return randomArray
 
 def Normalize(array, minmax):   # Array [x1, x2, x2, xn, y], minmax [min, max]
     for i in range(len(array)):
@@ -93,13 +139,3 @@ def FloatNumerizedPrint(array, roundsigns):
             print(round(array[i][j], roundsigns), end=" ")
         print("\n", end="")
 
-
-
-        #for i in Y: 
-            #temp += i
-        #if(temp == 0.0):
-            #init(X, W, T)
-            #printInfo()
-            #print("No matches, new cluster added")
-            #Y.clear()
-            #continue
