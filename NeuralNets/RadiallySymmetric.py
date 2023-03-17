@@ -1,15 +1,13 @@
 import numpy as np
 from math import sqrt
 from Common import E
+import os
 
 def Gauss(InputArray, vecC, R): # Non-iterative algoritm
     Alfa = 1 / (2*R**2)
-
     X = []
     Y = []
-
     h = []
-
     W = []
 
     for i in InputArray:
@@ -24,12 +22,12 @@ def Gauss(InputArray, vecC, R): # Non-iterative algoritm
     for i in range(len(vecC)):
         for j in range(len(X)):
             h.append(E**(-Alfa*sqrt((X[j]-vecC[i])**2)**2))
-        H.append(h.copy()) # Oni, syka, iz roditel'skogo massiva udalyautcha bez copirovania!! Piton govno
+        H.append(h.copy()) # important
         h.clear()
 
     H = np.array(H, float)
     H = H.T
-    print("H:\n", H)
+    print("H:\n", np.round(H, 2))
     HT = H.T
     xt = 1
     W = np.dot(np.dot(np.linalg.inv(np.dot(HT, H)), HT), Y.T)
@@ -61,5 +59,6 @@ def main():
                   [1.5, 1.17], 
                   [2.0, 0.20]]
     vecC = [-2.0, -1.0, 0.0, 1.0, 2.0] # Vector of centers
+    os.system("color f0")
     Gauss(InputArray, vecC, 1.5)
 main()
