@@ -5,16 +5,30 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NeuralNets", "NeuralNets\NeuralNets.pyproj", "{35045802-659A-4368-AE1E-0BBCE1F1A1C5}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AutoassociativeMemory", "AutoassociativeMemory\AutoassociativeMemory.pyproj", "{5FFB726D-37F7-4128-8479-0A8782D99F9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66DB86A4-A8F5-412B-964C-DB17137A72E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66DB86A4-A8F5-412B-964C-DB17137A72E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|x64.ActiveCfg = Release|Any CPU
+		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|x86.ActiveCfg = Release|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|x64.ActiveCfg = Release|Any CPU
+		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
