@@ -105,10 +105,12 @@ def main():
     inputArray = list()
     PracticeArray = list()
     #print(binArrayParser(imageRecognizer('img11.bmp')))
-    inputArray.append(binArrayParser(imageRecognizer('img1.bmp')))
-    inputArray.append(binArrayParser(imageRecognizer('img2.bmp')))
-    PracticeArray.append(binArrayParser(imageRecognizer('img3.bmp')))
-    PracticeArray.append(binArrayParser(imageRecognizer('img2.bmp')))
+    inputArray.append(binArrayParser(imageRecognizer('mono128x128/img1mono.bmp')))
+    inputArray.append(binArrayParser(imageRecognizer('mono128x128/img2mono.bmp')))
+    inputArray.append(binArrayParser(imageRecognizer('mono128x128/img3mono.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img4mono.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img5mono.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img6mono.bmp')))
     
 
     
