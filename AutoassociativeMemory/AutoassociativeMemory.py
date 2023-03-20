@@ -2,7 +2,7 @@ import cv2
 import os
 import Common
 import time 
-import numpy as np
+from numpy import array
 from PIL import Image
 
 def imgToBlackWhite(pathToImg, threshold):
@@ -18,10 +18,9 @@ def imgToBlackWhite(pathToImg, threshold):
 def imageRecognizer(filename):
     img = Image.open(filename)
     img  = img.convert('1')
-    return np.array(img)
+    return list(array(img))
 
 def binArrayParser(array):
-    array = list(array)
     returnArray = list()
     for i in array:     
         for j in i:
@@ -96,23 +95,14 @@ def Hopfield(X, Xprac):
     f.close()
 
 def main():
-    #InputArray = [[1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1], # 1 # NxM
-     #             [1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1]] # 2 
-    #Practice =   [[1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1], # 1 mod
-      #           [1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1]] # 2 mod
-    #Hopfield(InputArray, Practice)
-    #imgToBlackWhite("img11.bmp", 240)
     inputArray = list()
     PracticeArray = list()
-    #print(binArrayParser(imageRecognizer('img11.bmp')))
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img1mono.bmp')))
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img2mono.bmp')))
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img3mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img4mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img5mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img6mono.bmp')))
-    
-
     
     Hopfield(inputArray, PracticeArray)
 main()
