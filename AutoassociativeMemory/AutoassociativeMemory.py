@@ -1,7 +1,5 @@
 import cv2
 import os
-import binascii
-import codecs
 import Common
 import time 
 import numpy as np
@@ -17,59 +15,34 @@ def imgToBlackWhite(pathToImg, threshold):
     cv2.imshow("BlackWhite", img_binary)
     cv2.waitKey()
 
-def imgToBinary(filename):
-    with open(filename, 'rb') as file:
-        image_data = file.read()
+def imageRecognizer(filename):
+    img = Image.open(filename)
+    img  = img.convert('1')
+    return np.array(img)
 
-    data = binascii.hexlify(image_data)
-    binary = bin(int(data, 16))
-    binary = binary[2:].zfill(32)
-
-    parsed_filename = os.path.splitext(os.path.basename(filename))[0]
-    binary_filename = parsed_filename + '.bin'
-    with open(binary_filename, 'wb') as file:
-        file.write(binary.encode());
-
-def binaryToImg(filename):
-    binFile = open(filename,'rb')
-    binaryData = binFile.read()
-    hexData = '%0*X' % ((len(binaryData) + 3) // 4, int(binaryData, 2))
-
-    decode_hex = codecs.getdecoder("hex_codec")
-    hexData = decode_hex(hexData)[0]
-
-    parsed_filename = os.path.splitext(os.path.basename(filename))[0]
-    png_filename = parsed_filename + '_from_binary.png'
-    with open(png_filename, 'wb') as file:
-        file.write(hexData)
-
-def imageRecognizer():
-    img = Image.open('img1.bmp')
-    img = np.array(img)
-    print(img)
-
-def binaryToArray(filename, inputArray):
-    f = open(filename, 'r')
-    tmplist = list()
-    for i in f.read():
-        if (i == '0'):
-            tmplist.append(1)
-        elif (i == '1'):
-            tmplist.append(-1)
-    inputArray.append(tmplist)
-    f.close()
+def binArrayParser(array):
+    array = list(array)
+    returnArray = list()
+    for i in array:     
+        for j in i:
+            if (j == False):
+                returnArray.append(1)
+            elif (j == True):
+                returnArray.append(-1)
+    return returnArray
 
 def Hopfield(X, Xprac):
     start = time.time()
-    print(start)
-    f = open(f"log{time.time()}.txt", "w")
+    f = open(f"log{int(time.time())}.txt", "w")
+    print(f"Start time {start}")
     f.write(f"Start time {start}")
-    print("X")
-    f.write("\nX:\n")
+    f.write("\nX(training images):\n")
     Common.NumerizedFilePrint(X, f)
+    f.write("Y(noisy images):\n")
+    Common.NumerizedFilePrint(Xprac, f)
     W = Common.multiply(Common.transpose(X), X)
     W = Common.diagonalNullifier(W)
-    print("W calculated\nTime:", time.time() - start, end="")
+    print("W calculated\nTime:", time.time() - start)
     f.write("W:\n")
     Common.NumerizedFilePrint(W, f)
 
@@ -77,12 +50,12 @@ def Hopfield(X, Xprac):
         Y = [Xprac[prac]] # 2.1       
         n = 1.0
         counter = 0
-        print(f"\nImage {prac}:")
-        f.write(f"\nImage {prac}: {Y}")
+        print(f"\nImage {prac}:\n-----------------------------------")
+        f.write(f"\n\nImage {prac}(noisy image): {Y}\n----------------------------------------------------------------------")
         while(n > 0.0):
             print("Iteration ", counter)
             f.write(f"\nIteration {counter}\n")
-            f.write("Y:\n")
+            f.write("Y0(input image+calc data):\n")
             Common.NumerizedFilePrint(Y, f)
             temp = [] 
             S = []
@@ -91,49 +64,53 @@ def Hopfield(X, Xprac):
                 for j in range(len(W[0])):
                     tmp += W[i][j]*Y[counter][j]
                 S.append(tmp)
-            f.write("S:\n")
-            Common.NumerizedFilePrint(Y, f)
+            f.write(f"S(neuron state):\n  {S}\n")
             temp = [] 
             for j in range(len(Y[0])): # 2.3
                 temp.append(Common.SingleJump(S[j], 0))
             Y.append(temp)
-            print("Y1:\n", Y[counter+1])
-            f.write(f"Y1:\n{Y[counter+1]}\n")
+            f.write(f"Y1(output image):\n  {Y[counter+1]}\n")
             n = sum(Common.powList(Common.difference(Y[counter], Y[counter+1]))) # 2.4
-            print("n:", n)
+            print(f"n: {n}")
             f.write(f"n: {n}")
+            if(n == 0):
+                print("n = 0, this means that outputs are stabilized")
+                f.write(f"\nn = 0, this means that outputs are stabilized")
+                switcher = False
+                for i in range(len(X)):  # 2.2
+                    if (X[i] == Y[counter+1]):
+                        print("Match to training image", i)
+                        f.write(f"\nMatch to training image {i}")
+                        switcher = True
+                if (switcher == False):
+                    print("No Matches to training images")
+                    f.write("\nNo Match to training images")
             if(counter > 1 and sum(Common.powList(Common.difference(Y[counter], Y[counter - 2]))) == 0 and sum(Common.powList(Common.difference(Y[counter - 1], Y[counter - 3]))) == 0):
+                print("This image not recognized")
                 f.write("\nThis image not recognized")
-                print("This image not recognized:\n", Y[counter])  
                 break
             counter += 1
-            print(time.time() - start, "\n")
-    f.write(f"\nTotal time:{time.time() - start}")
+            print("Time:", time.time() - start)
+    f.write(f"\nTotal time:{time.time() - start}")  
+    print(f"\nTotal time:{time.time() - start}")
     f.close()
-    print(time.time() - start)
 
 def main():
     #InputArray = [[1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, -1, -1, 1], # 1 # NxM
      #             [1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1]] # 2 
     #Practice =   [[1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1], # 1 mod
-    #             [1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1]] # 2 mod
+      #           [1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1]] # 2 mod
     #Hopfield(InputArray, Practice)
     #imgToBlackWhite("img11.bmp", 240)
-    #imgToBlackWhite("img22.bmp", 250)
-    #imgToBlackWhite("img3.bmp", 240)
-    imgToBinary("img1.bmp")
-    imgToBinary("img2.bmp")
-    imgToBinary("img3.bmp")
-    #imgToBinary("img4B&Wmono.bmp")
-    #binaryToImg("img11B&Wmono.bin")
-    #binaryToImg("img22B&Wmono.bin")
-    #binaryToImg("img3B&Wmono.bin")
     inputArray = list()
     PracticeArray = list()
-    binaryToArray("img1.bin", inputArray)
-    binaryToArray("img2.bin", inputArray)
-    #binaryToArray("img3B&Wmono.bin", PracticeArray)
-    binaryToArray("img2.bin", PracticeArray)
-    imageRecognizer()
-    #Hopfield(inputArray, PracticeArray)
+    #print(binArrayParser(imageRecognizer('img11.bmp')))
+    inputArray.append(binArrayParser(imageRecognizer('img1.bmp')))
+    inputArray.append(binArrayParser(imageRecognizer('img2.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('img3.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('img2.bmp')))
+    
+
+    
+    Hopfield(inputArray, PracticeArray)
 main()
