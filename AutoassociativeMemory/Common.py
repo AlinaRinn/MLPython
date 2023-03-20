@@ -135,8 +135,10 @@ def NumerizedPrint(array, end = "\n"):
         print("%3d) %s" % (i, array[i]), end=end)
 
 def NumerizedFilePrint(array, f):
-    for i in range(len(array)):
-        f.write("%3d) %s" % (i, array[i]))
+    counter = 0
+    for line in array:
+        f.write(f"{counter}){line}\n")
+        counter += 1
 
 def FloatNumerizedPrint(array, roundsigns):
     for i in range(len(array)):
