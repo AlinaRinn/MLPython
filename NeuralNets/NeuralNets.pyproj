@@ -5,7 +5,7 @@
     <ProjectGuid>35045802-659a-4368-ae1e-0bbce1f1a1c5</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>Kohonen.py</StartupFile>
+    <StartupFile>AdaptiveResonance.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AdaptiveResonance.py" />
+    <Compile Include="Common.py" />
     <Compile Include="Hamming.py" />
     <Compile Include="HeteroAssociativeMemory.py" />
     <Compile Include="Kohonen.py" />

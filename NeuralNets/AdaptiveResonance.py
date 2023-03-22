@@ -1,7 +1,6 @@
 import Common
 from random import shuffle
 
-
 def ART1(inputArray, Rcr, lamda, V, epo):
     # region variables
     W = [] # neuron
@@ -10,6 +9,7 @@ def ART1(inputArray, Rcr, lamda, V, epo):
     R = []
     X = inputArray[0]
     WWinnerIndex = "No match"
+    Vdecrement = V/epo
     # endregion variables
 
     # cluster init 1.0
@@ -24,9 +24,9 @@ def ART1(inputArray, Rcr, lamda, V, epo):
     
     def printInfo(): 
         print("W:")
-        Common.NumerizedPrint(W)
+        Common.FloatNumerizedPrint(W, 3)
         print("\nT:")
-        Common.NumerizedPrint(T)
+        Common.FloatNumerizedPrint(T, 3)
         print("\nY:")
         Common.NumerizedPrint(Y)
         print("\nR:")
@@ -37,11 +37,11 @@ def ART1(inputArray, Rcr, lamda, V, epo):
     print("Iter 0: init")
     printInfo()
     # cluster compare # 2.0
-    for epoch in range(epo):
-        shuffle(inputArray)
+    for epoch in range(epo):       
+        print("\nEpoch", epoch, "\n----------------------")
         for e in range(1, len(inputArray), 1): 
             X = inputArray[e] # 2.1
-            print("\n\nIter", e, "\nX:", X)
+            print("\nIter", e, "\nX:", X)
             temp = 0
             for i in range(len(W)):
                 for j in range(len(W[0])):
@@ -58,7 +58,6 @@ def ART1(inputArray, Rcr, lamda, V, epo):
                 temp = 0
         
             winner = False
-
             if (max(R) >= Rcr): # 3.2
                 WWinnerIndex = R.index(max(R))
                 for j in range(len(W[0])):
@@ -66,7 +65,6 @@ def ART1(inputArray, Rcr, lamda, V, epo):
                     T[WWinnerIndex][j] = (1 - V)*T[WWinnerIndex][j] + V*X[j]
                 winner = True
                   
-
             if(winner == False):
                 init(X, W, T)
                 print("No winner, new cluster added")
@@ -76,14 +74,17 @@ def ART1(inputArray, Rcr, lamda, V, epo):
             Y.clear()
             R.clear()
             WWinnerIndex = "No match"
+        shuffle(inputArray)
+        V -= Vdecrement
+
 
 def main(): 
     inputArray = [[1, 0, 1, 0, 1, 0, 1, 0, 1], # 1
                   [0, 1, 0, 1, 0, 1, 0, 1, 0], # 2
-                  [1, 0, 1, 0, 1, 0, 1, 0, 0], # 1 mod
-                  [0, 1, 1, 1, 0, 1, 0, 1, 0], # 2 mod
-                  [0, 1, 0, 1, 0, 1, 0, 1, 1], # 2 mod
-                  [1, 1, 1, 0, 1, 0, 1, 0, 1], # 1 mod
-                  [1, 0, 1, 0, 0, 1, 0, 1, 0]] # 12 mod
-    ART1(inputArray, 0.7, 2, 0.6, 10)
+                  [1, 0, 1, 0, 1, 0, 1, 0, 0], # 1 noisy
+                  [0, 1, 1, 1, 0, 1, 0, 1, 0]] # 2 noisy
+                  #[0, 1, 0, 1, 0, 1, 0, 1, 1], # 2 noisy
+                  #[1, 1, 1, 0, 1, 0, 1, 0, 1], # 1 mod
+                  #[1, 0, 1, 0, 0, 1, 0, 1, 0]] # 12 
+    ART1(inputArray, 0.7, 2, 0.6, 1000)
 main()
