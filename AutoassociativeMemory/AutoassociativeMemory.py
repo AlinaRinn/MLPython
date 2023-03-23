@@ -97,12 +97,16 @@ def Hopfield(X, Xprac):
 def main():
     inputArray = list()
     PracticeArray = list()
+    #imgToBlackWhite('img1.bmp', 230)
+    #imgToBlackWhite('img2.bmp', 240)
+    #imgToBlackWhite('img3.bmp', 230)
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img1mono.bmp')))
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img2mono.bmp')))
     inputArray.append(binArrayParser(imageRecognizer('mono128x128/img3mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img4mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img5mono.bmp')))
     PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img6mono.bmp')))
+    PracticeArray.append(binArrayParser(imageRecognizer('mono128x128/img7mono.bmp')))
     
     Hopfield(inputArray, PracticeArray)
 main()
