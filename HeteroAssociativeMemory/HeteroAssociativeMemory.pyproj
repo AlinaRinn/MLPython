@@ -2,17 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>35045802-659a-4368-ae1e-0bbce1f1a1c5</ProjectGuid>
-    <ProjectHome>
-    </ProjectHome>
-    <StartupFile>AdaptiveResonance.py</StartupFile>
+    <ProjectGuid>6fcfad9e-be43-45e4-89aa-87906ea766cf</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>HeteroAssociativeMemory.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>NeuralNets</Name>
-    <RootNamespace>Perceptrons</RootNamespace>
-    <IsWindowsApplication>False</IsWindowsApplication>
+    <Name>HeteroAssociativeMemory</Name>
+    <RootNamespace>HeteroAssociativeMemory</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,13 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AdaptiveResonance.py" />
     <Compile Include="Common.py" />
-    <Compile Include="Hamming.py" />
-    <Compile Include="Kohonen.py" />
-    <Compile Include="MultipleLayerPerceptron.py" />
-    <Compile Include="RadiallySymmetric.py" />
-    <Compile Include="SingleLayerPerceptron.py" />
+    <Compile Include="HeteroAssociativeMemory.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -61,8 +61,22 @@ def diagonalNullifier(array):
 def difference(array0, array1):
     diff = list()
     for i in range(len(array0)):
-        diff.append(array0[i]- array1[i])
+        diff.append(array0[i] - array1[i])
     return diff
+
+def difference2dim(array0, array1):
+    diff = list()
+    for i in range(len(array0)):
+        for j in range(len(array0[0])):
+            diff.append(array0[i][j] - array1[i][j])
+    return diff
+
+def dim2to1(array0):
+    dim = list()
+    for i in range(len(array0)):
+        for j in range(len(array0[0])):
+            dim.append(array0[i][j])
+    return dim
 
 def powList(array: list) -> list:
     powList = array
