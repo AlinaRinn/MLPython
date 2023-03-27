@@ -46,7 +46,8 @@ def multiply(array0, array1):
             for j in range(len(array0[0])):
                 string += array0[k][j]*array1[j][i]
             stringsum.append(string)
-        print(k, " from", counter)
+        if ((k % 100) == 0): 
+            print(k, " from", counter)
         multiplied.append(stringsum.copy())
     return multiplied
 
