@@ -24,8 +24,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AdaptiveResonance.py" />
+    <Compile Include="AutoassociativeMemory.py" />
     <Compile Include="Common.py" />
     <Compile Include="Hamming.py" />
+    <Compile Include="HeteroAssociativeMemory.py" />
     <Compile Include="Kohonen.py" />
     <Compile Include="MultipleLayerPerceptron.py" />
     <Compile Include="RadiallySymmetric.py" />

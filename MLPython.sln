@@ -1,15 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33328.57
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NeuralNets", "NeuralNets\NeuralNets.pyproj", "{35045802-659A-4368-AE1E-0BBCE1F1A1C5}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AutoassociativeMemory", "AutoassociativeMemory\AutoassociativeMemory.pyproj", "{5FFB726D-37F7-4128-8479-0A8782D99F9E}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "HeteroAssociativeMemory", "HeteroAssociativeMemory\HeteroAssociativeMemory.pyproj", "{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}"
-EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Hamming", "Hamming\Hamming.pyproj", "{20BB422E-2EDF-46DA-8E5E-9784897B38FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,24 +21,6 @@ Global
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|x64.ActiveCfg = Release|Any CPU
 		{35045802-659A-4368-AE1E-0BBCE1F1A1C5}.Release|x86.ActiveCfg = Release|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|x64.ActiveCfg = Release|Any CPU
-		{5FFB726D-37F7-4128-8479-0A8782D99F9E}.Release|x86.ActiveCfg = Release|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Release|x64.ActiveCfg = Release|Any CPU
-		{6FCFAD9E-BE43-45E4-89AA-87906EA766CF}.Release|x86.ActiveCfg = Release|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Release|x64.ActiveCfg = Release|Any CPU
-		{20BB422E-2EDF-46DA-8E5E-9784897B38FB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

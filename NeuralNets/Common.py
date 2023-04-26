@@ -18,12 +18,19 @@ def SigmoidLogistics(A, S):   # A - feed parametr, S - neuron state
 def SigmoidHyperbolicTan(A, S):   # Same
     return 2*SigmoidLogistics(A, S) - 1
 
+def LinearThreshold(S, T):
+    if (S <= 0):
+        return 0
+    elif (S > 0 and S <= T):
+        return S
+    elif (S >= T):
+        return T
+
 def SingleJump(S, T):
     if (S <= T):
         return -1
     elif (S > T):
         return 1
-
 
 ### Common use functions ###
 
@@ -36,7 +43,7 @@ def transpose(array):
         transposed.append(row)
     return transposed
 
-def multiply(array0, array1):
+def multiply(array0, array1, adding = 0):
     multiplied = []
     counter = len(array0)
     for k in range(len(array0)):
@@ -44,25 +51,54 @@ def multiply(array0, array1):
         for i in range(len(array1[0])):
             string = 0
             for j in range(len(array0[0])):
-                string += array0[k][j]*array1[j][i]
+                string += array0[k][j]*array1[j][i] + adding
             stringsum.append(string)
-        print(k, " from", counter)
+        if ((k % 100) == 0): 
+            print(k, " from", counter)
         multiplied.append(stringsum.copy())
     return multiplied
 
-def diagonalNullifier(array):
+def multiplier(array, mult):
+    multi = array
+    for i in range(len(multi)):
+       for j in range(len(multi[0])):
+          multi[i][j] = multi[i][j]*mult
+    return multi
+
+def summator(array, summ):
+    result = array
+    for i in range(len(result)):
+       for j in range(len(result[0])):
+          result[i][j] = result[i][j] + summ
+    return result
+
+def diagonalNullifier(array, replace = 0):
     nullified = array
     for i in range(len(nullified)):
         for j in range(len(nullified[0])):
             if(i == j):
-                nullified[i][j] = 0
+                nullified[i][j] = replace
     return nullified
 
 def difference(array0, array1):
     diff = list()
     for i in range(len(array0)):
-        diff.append(array0[i]- array1[i])
+        diff.append(array0[i] - array1[i])
     return diff
+
+def difference2dim(array0, array1):
+    diff = list()
+    for i in range(len(array0)):
+        for j in range(len(array0[0])):
+            diff.append(array0[i][j] - array1[i][j])
+    return diff
+
+def dim2to1(array0):
+    dim = list()
+    for i in range(len(array0)):
+        for j in range(len(array0[0])):
+            dim.append(array0[i][j])
+    return dim
 
 def powList(array: list) -> list:
     powList = array
